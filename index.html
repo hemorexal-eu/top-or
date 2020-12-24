@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<script src="js/jquery.min.js"></script>
+
+    <script>
+    function set_validator_errors(){
+        orderValidator.errorTitle = 'Kérjük javítsd ki a következő hibákat'; 
+
+        orderValidator.errorNameField = 'Név'; 
+        orderValidator.errorNameMess = 'Adja meg nevét'; 
+        
+        orderValidator.errorPhoneField = 'Telefonszám'; 
+        orderValidator.errorPhoneMess = 'Írja be a helyes telefonszámot'; 
+        
+        orderValidator.errorAddress = 'Írja be a helyes címet'; 
+        orderValidator.errorRequired = 'kötelező mező'; 
+        orderValidator.errorMaxLength = 'érvényes maximális {1} karakter'; 
+        orderValidator.errorMinLength = 'érvényes minimum {1} karakter'; 
+        orderValidator.errorEmailField = 'E-mail';
+        orderValidator.errorEmail = 'Érvénytelen e-mail megadva';
+        }
+    </script>
+    
+<script>
+
+
+window.app = {
+    timestamp: parseInt((new Date()).getTime() / 1000),
+    jq: jQuery,
+    formAction: window.location.href,
+    leadToken: '5fe4b8da6b50d1.81129007',
+    offers: {"14981":{"currency":{"code":"HUF","name":"Ft"},"discount":"40","prepaid_info_html":"","country":{"code":"HU","name":"\u0412\u0435\u043d\u0433\u0440\u0438\u044f"},"id":14981,"price2":"21500","price":"12900","delivery_price":"","product_sku":"","link":""}},
+    currentOffer: {"currency":{"code":"HUF","name":"Ft"},"discount":"40","prepaid_info_html":"","country":{"code":"HU","name":"\u0412\u0435\u043d\u0433\u0440\u0438\u044f"},"id":14981,"price2":"21500","price":"12900","delivery_price":"","product_sku":"","link":""},
+    allowedCountries: ["HU"],
+    _setOfferId: false,
+    
+    setOffer: function (offerId) {
+        if (offerId == this._setOfferId) {
+            return ;
+        }
+        this._setOfferId = offerId;
+        if (offerId) {
+            var offer = app.offers[offerId];
+            var previousOffer = app.currentOffer;
+            app.currentOffer = offer;
+            var event = this.jq.Event("offerchange");
+            event.previousOffer = previousOffer;
+            event.currentOffer = app.currentOffer;
+            this.jq(document).trigger(event);
+            this.updatePage(offer);
+        } else {
+            $('input[name=country]').val('');
+        }
+    },
+    
+    updatePage: function(offer) {
+        $('x-newprice').html(offer.price);
+        $('x-oldprice').html(offer.price2);
+        $('x-currency').html(offer.currency.name);
+        $('input[name=offer], select[name=offer]').val(offer.id);
+        $('input[name=country]').val(offer.country.code);
+    },
+
+    blockForm: function() {
+        // Блокируем кнопки при отправке формы
+        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        app.incompleteOrder.lock = true;
+        clearTimeout(app.incompleteOrder.timer);
+    },
+
+    unblockForm: function() {
+        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        app.incompleteOrder.lock = false;
+        clearTimeout(app.incompleteOrder.timer);
+    }
+
+};
+
+
+</script><script src="js/form.validate.js"></script>
+<script src="js/form.incomplete.js"></script>
+<script src="js/main2.js"></script>
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WondaLips</title>
+  <link href="css/css.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="images/2979_8ddebe1ec03f043d5aac6069b5dfc27f_1554750762.jpg" type="image/x-icon">
+ 
+  <script src=" https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  					<meta name="robots" content="noindex, nofollow">
+		
+
+        
+	<link rel="stylesheet" href="css/tooltipster.bundle.min.css">
+    
+		
+		
+		    	<script src="js/jquery.countdown.min.js"></script>
+				
+  
+
+        <style>
+        .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+        .red-tooltip + .tooltip.top > .tooltip-arrow {border-top-color: #f00;}
+        </style>
+	
+		</head>
+
+<body>
+  <section class="part-one">
+    <div class="part-one__top">
+      <img class="part-one__top-logo" src="images/logo.png" alt="">
+    </div>
+    <div class="part-one__content">
+      <div class="part-one__product">
+
+        <img src="images/product.png" alt="">
+      </div>
+      <div class="part-one__details">
+        <h1 class="part-one__heading">
+          ELKÉPESZTŐ AJKAK
+
+          <br>
+          FELTÖLTÉS NÉLKÜL
+        </h1>
+        <p class="part-one__sub-heading">
+          Természetesen telt
+          <br>
+          ajkak injekciók vagy műtétek nélkül
+        </p>
+        <ul class="part-one__details-list">
+          <li class="part-one__details-list-item">
+            Feltölti és formálja az ajkakat
+          </li>
+          <li class="part-one__details-list-item">
+            Kiemeli az ajkak kontúrját 
+          </li>
+          <li class="part-one__details-list-item">
+            100%-ban Természetes Összetevők
+          </li>
+          <li class="part-one__details-list-item">
+			 CSAK MOST:  <span class="x_currency"><x-newprice>12900</x-newprice> <x-currency>Ft</x-currency> !!!</span> <del class="x_currency_old"><x-oldprice>21500</x-oldprice> !!!</del> HELYETT
+          </li>
+        </ul>
+
+        <div class="part-one__badges-container">
+          <span class="part-one__button to-form" style="cursor: pointer;">RENDELJ MOST</span>
+          <div class="part-one__badge part-one__badge--first"></div>
+          <div class="part-one__badge part-one__badge--second"></div>
+          <div class="part-one__badge part-one__badge--third"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="part-two">
+    <h2 class="part-two__heading">
+     A WondaLips  
+      <br>
+     összetevői:
+    </h2>
+    <div class="part-two__cards-container">
+      <div class="part-two__card">
+        <div class="part-two__card-image">
+          <img src="images/1.gif" alt="">
+        </div>
+
+        <h3 class="part-two__card-heading">
+          Linefill™
+        </h3>
+        <p class="part-two__card-text">
+		  <b>Egy erőteljes aktív összetevő a Provital<sup>&reg;</sup></b> által, ami a zsírsejteket használja az ajkak feltöltésére és a ráncok kisimítására. <b> Az ajkak teltebbnek és simábbnak fognak kinézni</b>
+        </p>
+      </div>
+      <div class="part-two__card">
+        <div class="part-two__card-image">
+          <img src="images/2.png" alt="">
+        </div>
+
+        <h3 class="part-two__card-heading">
+          KENDERMAGOLAJ
+        </h3>
+        <p class="part-two__card-text">
+         A kendermagolaj kiváló <b>  puhító és hidratáló hatással rendelkezik. </b> Rengeteg <b> esszenciális zsírsavat, Omega 3-at, Omega 6-ot és GLA-t tartalmaz, valamit gazdag E vitaminban. </b>
+        </p>
+      </div>
+      <div class="part-two__card">
+        <div class="part-two__card-image">
+          <img src="images/3.png" alt="">
+        </div>
+		
+		<h3 class="part-two__card-heading">
+          HIALURONSAV
+        </h3>
+        <p class="part-two__card-text">
+          <b>Megnagyobbítja az ajkakat,   </b>   összeköti a bőr strukturális elemeit: az elasztint és a kollagént.  <b>   Hidratál és a nedvességet a bőrön belül tartja. </b> 
+        </p>
+      </div>
+      <div class="part-two__card">
+        <div class="part-two__card-image">
+          <img src="images/4.png" alt="">
+        </div>
+
+        <h3 class="part-two__card-heading">
+          99.5%-BAN TISZTA KOLLAGÉN
+        </h3>
+        <p class="part-two__card-text">
+          <b>Mélyre behatol és molekuláris szinten regenerálja a bőrt. </b> Visszaállítja az ajkak helyes alakját.  <b>  Stimulálja az új kollagénrostok kialakulását. </b>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="part-three">
+    <h2 class="part-three__heading part-three__heading--main">
+      MIÉRT ÉRDEMES  
+      <br>
+     MEGRENDELNI?
+    </h2>
+    <p class="part-three__text">
+      A WondaLips  <strong> segítségével telt ajkaid lehetnek műtét nélkül.</strong><br><br>
+      Köszönhetően a természetes összetevőinek, végre <strong> olyan ajkaid lehetnek, amire mindig is vágytál <u>  fájdalom nélkül, és elérhető áron. </u> </strong> 
+	  Nagyon kedvező áron kapható a termék összehasonlítva a műtétekkel, vagy termékekkel, amik lehet, hogy nem is működnek.
+    </p>
+    <h2 class="part-three__heading">
+      HOGYAN MŰKÖDIK A WONDALIPS?
+    </h2>
+    <p class="part-three__text part-three__text">
+      A WondaLips egy zsír- és koszmentes krém, ami a legjobb természetes összetevőket kombinálja, hogy javítsa az ajkak
+alakját, textúráját és vastagságát.<br><br> 
+	  <strong>A hialuronsav  </strong>  azonnal hat és a <strong> peptidek   </strong> fenntartják a hatásukat.  <strong> A LINEFILL™, a kendermagolaj és a 99.5%-os kollagén </strong>  segít ezekben a folyamatokban, és ezáltal az ajkak hidratáltak, teltebbek és sokkal szebbek lesznek. 
+   </p>
+  </section>
+
+  <section class="part-four">
+    <!-- <div class="part-four__container"> -->
+    <div class="part-four__image-container">
+      <img class="part-four__image" src="images/img_dr.png" alt="">
+    </div>
+    <div class="part-four__content">
+      <div class="part-four__content-container">
+        <h2 class="part-four__heading">
+         SZAKEMBEREK 
+          <br>
+         VÉLEMÉNYEI  
+        </h2>
+        <h5 class="part-four__sub-heading">
+          DR. ANDRÁSI IVÁN - PLASZTIKAI SEBESZ
+        </h5>
+        <p class="part-four__text">
+          Ajánlom a WondaLips krémet minden páciensemnek, aki szájfeltöltésen vagy vastagításon gondolkozik. A WondaLips természetes módon alakítja gyönyörűre az ajkakat drága és veszélyes procedúrák nélkül. Kétségem sincs, hogy bárki használhatja a erméket.
+        </p>
+      </div>
+    </div>
+    <!-- </div> -->
+  </section>
+
+  <section class="part-five">
+    <div class="part-five__content">
+      <div class="part-five__product">
+
+        <img src="images/product2.png" alt="" class="part-five__product-img">
+      </div>
+      <div class="part-five__details">
+        <div class="part-five__badges-container">
+          <img src="images/stamp_1-big.png" alt="" class="part-five__badge">
+          <img src="images/stamp_2-big.png" alt="" class="part-five__badge">
+          <img src="images/stamp_3-big.png" alt="" class="part-five__badge">
+        </div>
+        <h2 class="part-five__heading">
+          RENDELD MEG A   
+          <br>
+          WONDALIPS-ET CSAK MOST,  
+          <br>
+          <span class="part-five__discount">
+           40% KEDVEZMÉNNYEL 
+          </span>
+        </h2>
+        <span class="part-five__button to-form" style="cursor: pointer;">
+         RENDELJE MEG MOST
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="part-six">
+    <h2 class="part-six__heading">
+      NÉZD MEG AZ OLVASÓINK
+
+      <br>
+      VÉLEMÉNYEIT A 
+      <br>
+      WONDALIPS-RŐL:  
+    </h2>
+    <h2 class="part-six__heading part-six__heading--mobile">
+      NÉZD MEG AZ OLVASÓINK VÉLEMÉNYEIT A WONDALIPS-RŐL: 
+    </h2>
+    <div class="part-six__testemonials">
+      <div data-slider="" class="part-six__slider">
+        <div class="slide slide--1">
+          <div class="slide__container">
+            <img src="images/fb_icon.png" class="slide__fb-icon">
+            <div class="slide__top">
+              <div class="slide__image">
+                <img src="images/avatar_1.png" alt="">
+              </div>
+              <div class="slide__info">
+                <p class="slide__name">
+                  Solymosi Júlia
+                </p>
+                <p class="slide__world">
+                  <img src="images/world_icon.png" alt="">
+                </p>
+              </div>
+              <div class="slide__dots">
+                <img src="images/dots.png" alt="">
+              </div>
+            </div>
+            <div class="slide__content">
+              <p class="slide__text">
+                <span class="slide__text-link to-form" style="cursor: pointer;">
+                  WondaLips
+                </span>
+                    - a krém segített, hogy álomszerű ajkaim legyenek - szépek és vastagok. Már egyáltalán nem szégyellem az arcomat.
+              </p>
+            </div>
+            <div class="slide__status">
+              <div class="slide__likes">
+                <img src="images/Like_icon.png" alt="">
+                <img src="images/Heart_icon.png" alt="">
+                <!-- <img src="//cdn4.cachedrives.com/o//WONDALIPS/WhitePink/HU/img/Amazing_face_icon.png" alt="" /> -->
+                1.265
+              </div>
+              <div class="slide__comments">
+                13 komentáře
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide slide--2">
+          <div class="slide__container">
+            <img src="images/fb_icon.png" class="slide__fb-icon">
+            <div class="slide__top">
+              <div class="slide__image">
+                <img src="images/avatar_2.png" alt="">
+              </div>
+              <div class="slide__info">
+                <p class="slide__name">
+                  Barbara
+                </p>
+                <p class="slide__world">
+                  <img src="images/world_icon.png" alt="">
+                </p>
+              </div>
+              <div class="slide__dots">
+                <img src="images/dots.png" alt="">
+              </div>
+            </div>
+            <div class="slide__content">
+              <p class="slide__text">
+                <span class="slide__text-link to-form" style="cursor: pointer;">
+                  WondaLips:
+                </span>
+                   tényleg működik! Nézzétek meg a régi képeimet, ha látni szeretnétek!
+              </p>
+            </div>
+            <div class="slide__status">
+              <div class="slide__likes">
+                <img src="images/Like_icon.png" alt="">
+                <img src="images/Heart_icon.png" alt="">
+                <!-- <img src="//cdn4.cachedrives.com/o//WONDALIPS/WhitePink/HU/img/Amazing_face_icon.png" alt="" /> -->
+                287
+              </div>
+              <div class="slide__comments">
+                1 kommentek
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide slide--3">
+          <div class="slide__container">
+            <img src="images/fb_icon.png" class="slide__fb-icon">
+            <div class="slide__top">
+              <div class="slide__image">
+                <img src="images/avatar_3.png" alt="">
+              </div>
+              <div class="slide__info">
+                <p class="slide__name">
+                  Krisztina
+                </p>
+                <p class="slide__world">
+                  <img src="images/world_icon.png" alt="">
+                </p>
+              </div>
+              <div class="slide__dots">
+                <img src="images/dots.png" alt="">
+              </div>
+            </div>
+            <div class="slide__content">
+              <p class="slide__text">
+                Először nagyon szkeptikus voltam, de bevallom - 
+                <span class="slide__text-link to-form" style="cursor: pointer;">
+                  a WondaLips
+                </span>
+                tényleg működik! Egyszerűen nagyon örülök, mert jobb, mint a szájfeltöltés!
+              </p>
+            </div>
+            <div class="slide__status">
+              <div class="slide__likes">
+                <img src="images/Like_icon.png" alt="">
+                <img src="images/Heart_icon.png" alt="">
+                <!-- <img src="//cdn4.cachedrives.com/o//WONDALIPS/WhitePink/HU/img/Amazing_face_icon.png" alt="" /> -->
+                386
+              </div>
+              <div class="slide__comments">
+                2 kommentek
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide slide--4">
+          <div class="slide__container">
+            <img src="images/fb_icon.png" class="slide__fb-icon">
+            <div class="slide__top">
+              <div class="slide__image">
+                <img src="images/avatar_4.png" alt="">
+              </div>
+              <div class="slide__info">
+                <p class="slide__name">
+                  Mónika
+                </p>
+                <p class="slide__world">
+                  <img src="images/world_icon.png" alt="">
+                </p>
+              </div>
+              <div class="slide__dots">
+                <img src="images/dots.png" alt="">
+              </div>
+            </div>
+            <div class="slide__content">
+              <p class="slide__text">
+                <span class="slide__text-link to-form" style="cursor: pointer;">
+                  A WondaLips
+                </span>
+                  működik! Ajánlom az összes barátomnak és ismerősömnek. Végre elköszönhetek a szájfeltöltésektől!
+              </p>
+            </div>
+            <div class="slide__status">
+              <div class="slide__likes">
+                <img src="images/Like_icon.png" alt="">
+                <img src="images/Heart_icon.png" alt="">
+                <!-- <img src="//cdn4.cachedrives.com/o//WONDALIPS/WhitePink/HU/img/Amazing_face_icon.png" alt="" /> -->
+                429
+              </div>
+              <div class="slide__comments">
+                0 kommentek
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide slide--5">
+          <div class="slide__container">
+            <img src="images/fb_icon.png" class="slide__fb-icon">
+            <div class="slide__top">
+              <div class="slide__image">
+                <img src="images/avatar_5.png" alt="">
+              </div>
+              <div class="slide__info">
+                <p class="slide__name">
+                  Réka
+                </p>
+                <p class="slide__world">
+                  <img src="images/world_icon.png" alt="">
+                </p>
+              </div>
+              <div class="slide__dots">
+                <img src="images/dots.png" alt="">
+              </div>
+            </div>
+            <div class="slide__content">
+              <p class="slide__text">
+                Mindig féltem a műtétektől és injekcióktól, de köszönhetően  
+                <span class="slide__text-link to-form" style="cursor: pointer;">
+                  a WondaLips-nek
+                </span>
+                  már nem aggódom! 
+              </p>
+            </div>
+            <div class="slide__status">
+              <div class="slide__likes">
+                <img src="images/Like_icon.png" alt="">
+                <img src="images/Heart_icon.png" alt="">
+                <!-- <img src="//cdn4.cachedrives.com/o//WONDALIPS/WhitePink/HU/img/Amazing_face_icon.png" alt="" /> -->
+                386
+              </div>
+              <div class="slide__comments">
+                2 kommentek
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide slide--6">
+          <div class="slide__container">
+            <img src="images/fb_icon.png" class="slide__fb-icon">
+            <div class="slide__top">
+              <div class="slide__image">
+                <img src="images/avatar_6.png" alt="">
+              </div>
+              <div class="slide__info">
+                <p class="slide__name">
+                Alexandra
+                </p>
+                <p class="slide__world">
+                  <img src="images/world_icon.png" alt="">
+                </p>
+              </div>
+              <div class="slide__dots">
+                <img src="images/dots.png" alt="">
+              </div>
+            </div>
+            <div class="slide__content">
+              <p class="slide__text">
+                <span class="slide__text-link to-form" style="cursor: pointer;">
+                  WondaLips
+                </span>
+                Ez egy természetes termék, ami tényleg segített megvastagítani és széppé tenni az ajkaimat! Köszönöm!
+              </p>
+            </div>
+            <div class="slide__status">
+              <div class="slide__likes">
+                <img src="images/Like_icon.png" alt="">
+                <img src="images/Heart_icon.png" alt="">
+                <!-- <img src="//cdn4.cachedrives.com/o//WONDALIPS/WhitePink/HU/img/Amazing_face_icon.png" alt="" /> -->
+                386
+              </div>
+              <div class="slide__comments">
+                2 kommentek
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="part-six__cards">
+      <div class="part-six__card">
+        <div class="part-six__card-image">
+          <img src="images/MADE-IN-ITALY.png" alt="" class="part-six__card-img">
+        </div>
+        <h3 class="part-six__card-heading">
+         A WONDALIPS 100%-BAN EURÓPAI TERMÉK
+        </h3>
+        <p class="part-six__card-text">
+          A legjobb  <b> francia laboratóriumok közös munkájaként készült, </b>   hogy a lehető leghatásosabb terméket alakítsák ki,  <b>  ami maximális hatással van az ajkaidra! </b>
+        </p>
+      </div>
+      <div class="part-six__card">
+        <div class="part-six__card-image">
+          <img src="images/badge.png" alt="" class="part-six__card-img part-six__card-img--badge">
+        </div>
+        <!-- <h3 class="part-six__heading"></h3> -->
+        <p class="part-six__card-text">
+          Mi hiszünk a WondaLips-ben és ezért egy  <b>  exklúzív ELÉGEDETTSÉGI VAGY VISSZAFIZETÉSI GARANCIÁT AJÁNLUNK,  </b> amennyiben nem elégedett a WondaLips-szel,  <u> visszakérheti a teljes árát vagy az elköltött összeget! </u>
+        </p>
+      </div>
+      <div class="part-six__card">
+        <div class="part-six__card-image">
+          <img src="images/lips_badge.png" alt="" class="part-six__card-img">
+        </div>
+        <h3 class="part-six__card-heading part-six__card-heading--bold">
+          TAPASZTALAT ÉS MEGERŐSÍTÉS
+        </h3>
+        <!-- <p class="part-six__text"></p> -->
+      </div>
+    </div>
+  </section>
+
+  <section class="part-seven">
+    <img class="part-seven__flower" src="images/flower.png" alt="">
+    <p class="part-seven__text">
+      A TAPASZTALATUNK A KOZMETIKAI IPARBAN A LEGJOBB GARANCIA ARRA, HOGY A TERMÉK KIVÁLÓ MINŐSÉGŰ. A KEZELÉS MINDEN STÁDIUMÁBAN SEGíTSÉGET NYÚJTUNK.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <img src="images/logo-footer.png" alt="">
+    <p class="footer__text">
+      <strong>
+        A WondaLips ajánlat limitált ideig érhető el, amíg a készlet tart. Használd ki most: töltsd ki az űrlapot és a munkatársaink 24 órán belül felveszik veled a kapcsolatot a megadott számon.
+      </strong>
+      <br>
+       Amennyiben meg szeretnéd vásárolni a WondaLips-et, házhoz fogják azt szállítani FIZETÉS NÉLKÜL, előre, bankkártya használata nélkül.
+    </p>
+    <div class="footer__form-container">
+      <div id="main-form" class="footer__form">
+        <div class="footer__form-content">
+          <h2 style="line-height: 3.4rem" class="footer__form-heading">
+            Csak ma: 40% kedvezmény<br>
+            <del class="x_currency_old"></del> <span class="x_currency"></span>
+          </h2>
+
+          <div class="container" style="max-width: 500px;margin: 0;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #212529;text-align: left;background-color: #fff; padding-bottom: 50px;">
+
+            <form class="contact form_order" method="post" accept-charset="utf-8" role="form" action="">
+                  <input name="csrf_token" type="hidden" value="e6fb88adcaa96a95b37efe14b9e62f3f:1608825052">
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="HU" selected="selected" value="14981">
+            Венгрия        </option>
+    </select>
+
+     
+              
+              <center>
+                <h3 class="title">Töltsd ki az űrlapot:</h3>
+              </center>
+
+              <div class="form-group">
+                <label>Név és Utónév</label>
+                <input type="text" name="name" class="form-control order_data required" placeholder="Írd be a keresztneved és vezetélneved" required="required">
+              </div>
+
+              <div class="form-group">
+                <label>Mobiltelefon szám</label>
+                <input type="tel" name="phone" class="form-control order_data required" placeholder="mobiltelefonszám" required="required">
+              </div>
+
+              <div class="form-row offer-selection">
+                <div class="col-auto text-center d-flex align-items-center" data-toggle="lightbox">
+                  <img data-jslghtbx="" style="max-width:100%;max-height:80px;" src="images/2979_8ddebe1ec03f043d5aac6069b5dfc27f_1554750762.jpg">
+                </div>
+
+                <div class="form-group col text-center">
+                  <span>Aktív ajánlat:</span>
+                  <h5>1 WondaLips csomag maradt
+                    <span class="x_currency"></span>
+                  </h5>
+                 
+                </div>
+
+              </div>
+
+
+              <center>
+                <button class="btn btn-lg btn-warning new-sbm-btn " type="submit">Megrendelés befejezése</button>
+                <!--img src="/manager/img/form-secure.jpg" style="max-width:250px;margin:10px"-->
+              </center>
+            </form>
+
+          </div>
+
+
+        </div>
+      </div>
+      <div class="footer__form-side">
+        <div class="footer__content">
+          <div class="footer__product" style="position: relative;">
+			<div class="custom_label">
+				<span>40%</span>
+				  kedvezmény
+			</div>
+			<div class="custom_price">
+				<x-newprice>12900</x-newprice> <x-currency>Ft</x-currency> 
+			</div>
+            <img src="images/product-footer.png" alt="">
+          </div>
+          <div class="footer__badges-container">
+            <img src="images/stamp_1-big.png" alt="" class="footer__badge">
+            <img src="images/stamp_2-big.png" alt="" class="footer__badge">
+            <img src="images/stamp_3-big.png" alt="" class="footer__badge">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom-bar">
+      <p class="footer__bottom-bar-text">
+        <strong>
+          FIZETHETSZ KÉSZPÉNZZEL A KISZÁLLÍTÓNAK, MIUTÁN MEGKAPTAD A RENDELSÉT!
+        </strong>
+        <br>
+        GYORS KISZÁLLÍTÁS MAGYARORSZÁGRA ÉS 48 ÓRÁVAL RENDELÉS UTÁN MÁR KÉZHEZ IS KAPHATJA. A TERMÉK NEM KAPHATÓ GYÓGYZSERTÁRAKBAN. FIZETHET KÉSZPÉNZZEL A TERMÉK MEGÉRKEZÉSEKOR, BANKKÁRTYA NEM SZÜKSÉGES ÍGY BIZTONSÁGBAN VAGY AZ ONLINE CSALÁSOK ELLEN 
+      </p>
+    </div>
+  </footer>
+
+  
+
+	
+  <style>
+	.custom_label { 
+		position: absolute !important; top: 50px; right: 240px; width: 150px; color: #C3357E; font-weight: bold; text-align: center; font-size: 1.6em
+	}
+	.custom_label span { display: block; font-size: 2em; line-height: 100%}
+
+	.custom_price { 
+		position: absolute !important;  top: 270px; right: 210px; color: white; font-weight: bold; font-size: 1.8em; text-align: left;
+	}
+	@media (max-width: 1200px) { 
+		.custom_label { right: 300px; top: 40px; font-size: 1.6em}
+		.custom_price { right: 270px; top: 225px;}
+	}
+	@media (max-width: 800px) { 
+		.custom_label { right: 80px; top: 40px; }
+		.custom_price { right: 40px; top: 225px;}
+	}
+    .ekko-lightbox .modal-header {
+      padding: 10px;
+    }
+
+    .ekko-lightbox .modal-body {
+      padding: 0px;
+      text-align: center !important;
+    }
+
+    .alert {
+      margin: 25px;
+    }
+
+    .preloader {
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    /* LOADER 1 */
+
+    .loader-1:before,
+    .loader-1:after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      border: 10px solid transparent;
+      border-top-color: #3498db;
+    }
+
+    .loader-1:before {
+      z-index: 100;
+      animation: spin 1s infinite;
+    }
+
+    .loader-1:after {
+      border: 10px solid #ccc;
+    }
+
+    @keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    form .preloader {
+      display: none;
+    }
+
+    form .preloader.show {
+      float: left;
+      display: block;
+      width: 35px;
+      margin: 10px 0px 0px 15px;
+      height: 35px;
+    }
+
+    form.loading {
+      opacity: 0.5;
+    }
+
+    form.loading .preloader {
+      display: block;
+      position: absolute;
+      left: calc(50% - 50px);
+      top: calc(50% - 50px);
+    }
+
+    #submit-button {
+      margin-top: 10px;
+    }
+
+    .new-sbm-btn {
+      font-weight: bold;
+      margin-left: -5px;
+      border-radius: 0px;
+      cursor: pointer;
+    }
+
+    .force-hidden {
+      display: none !important;
+    }
+
+    @media (min-width:480px) {}
+
+    img {
+      cursor: auto;
+    }
+  </style>
+
+<style>
+    a.fb-msg-btn {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      padding: 4px 10px;
+      margin: 0;
+      background-color: #0084ff;
+      border: 0;
+      cursor: pointer;
+      outline: none;
+      border-radius: 5px;
+      visibility: hidden;
+    }
+  
+    .fb-msg-component {
+      position: fixed;
+      bottom: 0px;
+      left: 0px;
+    }
+  
+    a:hover.fb-msg-btn {
+      background-color: #0268c7;
+    }
+  
+    i.fb-msn-icon {
+      background-image: url();
+      background-size: 17px 34px;
+      background-repeat: no-repeat;
+      display: inline-block;
+      height: 16px;
+      width: 16px;
+      background-position: 0 -17px;
+      position: relative;
+      top: 4px;
+    }
+  </style>
+
+  <script>
+    {
+      $('.to-form').click(function () {
+        $('html, body').animate({ scrollTop: $('.contact').offset().top }, 800);
+      })
+    }
+  </script>
+
+  
+    <style type="text/css">
+      @media (max-width: 500px){
+    .btn-group-lg>.btn, .btn-lg{
+      font-size: .8rem;
+    }
+      .form-control, select{
+    font-size: 0.7rem;
+  }
+  }
+  </style>
+ <div style="text-align: center; padding: 20px; font-size: 18px;">
+   <p>OOO "OSTROV PRODAZH" OGRN: 1197746695530 VAT: 7708365555</p>
+<p>129090, Moscow, pereulok Zhivarev, house 8, stroenie 3, flat 16 email: ostrov.prodazh@mail.com Skype: ostrov.prodazh@mail.com</p> 
+
+
+    
+            <p class="conf-link doclinks">
+        <a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
+          |
+        <a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
+      </p>
+      
+    
+ </div>
+</body>
+
+</html>
